@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "sobre_mims",
+  "info": {
+    "singularName": "sobre-mim",
+    "pluralName": "sobre-mims",
+    "displayName": "Sobre Mim",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    },
+    "banner": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "biografia": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
