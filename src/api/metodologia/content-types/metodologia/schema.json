@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "metodologias",
+  "info": {
+    "singularName": "metodologia",
+    "pluralName": "metodologias",
+    "displayName": "Metodologia",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metodos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::metodo.metodo"
+    }
+  }
+}

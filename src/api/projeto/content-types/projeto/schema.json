@@ -31,6 +31,9 @@
     "slug": {
       "type": "string",
       "required": true
+    },
+    "url_externa": {
+      "type": "string"
     }
   }
 }

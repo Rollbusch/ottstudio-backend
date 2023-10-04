@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metodos",
+  "info": {
+    "singularName": "metodo",
+    "pluralName": "metodos",
+    "displayName": "Metodo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

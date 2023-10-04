@@ -13,15 +13,16 @@
   "pluginOptions": {},
   "attributes": {
     "email": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "banner": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "nome": {
       "type": "string",
@@ -29,6 +30,14 @@
     },
     "biografia": {
       "type": "richtext",
+      "required": true
+    },
+    "instagram": {
+      "type": "string",
+      "required": true
+    },
+    "behance": {
+      "type": "string",
       "required": true
     }
   }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "material",
     "pluralName": "materials",
-    "displayName": "Material"
+    "displayName": "Material",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,28 +13,25 @@
   "pluginOptions": {},
   "attributes": {
     "banner": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "titulo": {
       "type": "string",
       "required": true
     },
-    "categoria": {
-      "type": "enumeration",
-      "enum": [
-        "E-BOOK",
-        "MÉTODO"
-      ],
-      "required": true
-    },
     "preco": {
       "type": "decimal",
       "required": true
+    },
+    "categoria": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::material-categoria.material-categoria"
     }
   }
 }
