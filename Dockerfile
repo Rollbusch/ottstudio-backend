@@ -1,11 +1,11 @@
-FROM node:18-alpine
+FROM node:20-alpine3.18
 
 WORKDIR /app
 COPY . .
 
-RUN npm install
+RUN npm install --unsafe-perm
 RUN npm run build
 
-EXPOSE 1337
+EXPOSE 3000
 
-RUN npm start
+CMD ["npm", "start"]

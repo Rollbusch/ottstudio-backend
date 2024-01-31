@@ -481,6 +481,50 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -632,56 +676,13 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiMaterialMaterial extends Schema.CollectionType {
   collectionName: 'materials';
   info: {
     singularName: 'material';
     pluralName: 'materials';
     displayName: 'Material';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -689,9 +690,12 @@ export interface ApiMaterialMaterial extends Schema.CollectionType {
   attributes: {
     banner: Attribute.Media & Attribute.Required;
     titulo: Attribute.String & Attribute.Required;
-    categoria: Attribute.Enumeration<['E-BOOK', 'M\u00C9TODO']> &
-      Attribute.Required;
     preco: Attribute.Decimal & Attribute.Required;
+    categoria: Attribute.Relation<
+      'api::material.material',
+      'oneToOne',
+      'api::material-categoria.material-categoria'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -703,6 +707,103 @@ export interface ApiMaterialMaterial extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::material.material',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMaterialCategoriaMaterialCategoria
+  extends Schema.CollectionType {
+  collectionName: 'materiais_categorias';
+  info: {
+    singularName: 'material-categoria';
+    pluralName: 'materiais-categorias';
+    displayName: 'Material Categoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categoria: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::material-categoria.material-categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::material-categoria.material-categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMetodoMetodo extends Schema.CollectionType {
+  collectionName: 'metodos';
+  info: {
+    singularName: 'metodo';
+    pluralName: 'metodos';
+    displayName: 'Metodo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    titulo: Attribute.String & Attribute.Required;
+    descricao: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::metodo.metodo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::metodo.metodo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMetodologiaMetodologia extends Schema.SingleType {
+  collectionName: 'metodologias';
+  info: {
+    singularName: 'metodologia';
+    pluralName: 'metodologias';
+    displayName: 'Metodologia';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    metodos: Attribute.Relation<
+      'api::metodologia.metodologia',
+      'oneToMany',
+      'api::metodo.metodo'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::metodologia.metodologia',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::metodologia.metodologia',
       'oneToOne',
       'admin::user'
     > &
@@ -726,6 +827,7 @@ export interface ApiProjetoProjeto extends Schema.CollectionType {
     titulo: Attribute.String & Attribute.Required;
     descricao: Attribute.Text & Attribute.Required;
     slug: Attribute.String & Attribute.Required;
+    url_externa: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -756,10 +858,12 @@ export interface ApiSobreMimSobreMim extends Schema.SingleType {
     draftAndPublish: true;
   };
   attributes: {
-    email: Attribute.String;
+    email: Attribute.String & Attribute.Required;
     banner: Attribute.Media & Attribute.Required;
     nome: Attribute.String & Attribute.Required;
     biografia: Attribute.RichText & Attribute.Required;
+    instagram: Attribute.String & Attribute.Required;
+    behance: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -790,11 +894,14 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::material.material': ApiMaterialMaterial;
+      'api::material-categoria.material-categoria': ApiMaterialCategoriaMaterialCategoria;
+      'api::metodo.metodo': ApiMetodoMetodo;
+      'api::metodologia.metodologia': ApiMetodologiaMetodologia;
       'api::projeto.projeto': ApiProjetoProjeto;
       'api::sobre-mim.sobre-mim': ApiSobreMimSobreMim;
     }
