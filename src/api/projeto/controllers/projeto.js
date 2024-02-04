@@ -55,6 +55,7 @@ module.exports = createCoreController(
       }
 
       ctx.query = {
+        populate: 'banner',
         filters: {
           slug: {
             '$eq': ctx.params.slug
